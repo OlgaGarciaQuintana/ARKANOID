@@ -12,6 +12,7 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -22,7 +23,7 @@ public class Arkanoid2 extends JFrame implements KeyListener {
 	/* CONSTANTS */
 
 	public static final int SCREEN_WIDTH = 800;
-	public static final int SCREEN_HEIGHT = 600;
+	public static final int SCREEN_HEIGHT = 890;
 
 	public static final double BALL_RADIUS = 10.0;
 	public static final double BALL_VELOCITY = 0.7;
@@ -209,16 +210,20 @@ public class Arkanoid2 extends JFrame implements KeyListener {
 	class Brick extends Rectangle {
 
 		boolean destroyed = false;
+		public Color c;
 
-		Brick(double x, double y) {
+		Brick(double x, double y, Color c) {
 			this.x = x;
 			this.y = y;
 			this.sizeX = BLOCK_WIDTH;
 			this.sizeY = BLOCK_HEIGHT;
+			this.c = c;
 		}
 
-		void draw(Graphics g) {
-			g.setColor(Color.YELLOW);
+		//MODIFICACION 1:
+		
+		void draw(Graphics g) {		
+			g.setColor(c);
 			g.fillRect((int) left(), (int) top(), (int) sizeX, (int) sizeY);
 		}
 	}
@@ -236,7 +241,7 @@ public class Arkanoid2 extends JFrame implements KeyListener {
 		}
 
 		void draw(Graphics g) {
-			g.setColor(Color.RED);
+			g.setColor(Color.PINK);
 			g.fillOval((int) left(), (int) top(), (int) radius * 2,
 					(int) radius * 2);
 		}
@@ -320,13 +325,14 @@ public class Arkanoid2 extends JFrame implements KeyListener {
 	}
 
 	void initializeBricks(List<Brick> bricks) {
+		Random random = new Random();
 		// deallocate old bricks
 		bricks.clear();
 
 		for (int iX = 0; iX < COUNT_BLOCKS_X; ++iX) {
 			for (int iY = 0; iY < COUNT_BLOCKS_Y; ++iY) {
 				bricks.add(new Brick((iX + 1) * (BLOCK_WIDTH + 3) + 22,
-						(iY + 2) * (BLOCK_HEIGHT + 3) + 20));
+						(iY + 2) * (BLOCK_HEIGHT + 3) + 20, null));
 			}
 		}
 	}
