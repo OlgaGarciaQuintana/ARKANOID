@@ -331,8 +331,22 @@ public class Arkanoid2 extends JFrame implements KeyListener {
 
 		for (int iX = 0; iX < COUNT_BLOCKS_X; ++iX) {
 			for (int iY = 0; iY < COUNT_BLOCKS_Y; ++iY) {
-				bricks.add(new Brick((iX + 1) * (BLOCK_WIDTH + 3) + 22,
-						(iY + 2) * (BLOCK_HEIGHT + 3) + 20, null));
+				Color c = null;
+				
+				if(iY%2==0) {
+					c = Color.BLUE;
+					if(iX%2==0) {
+						c = Color.RED;
+					}
+				}else {
+					c = Color.YELLOW;
+					if(iX%2==0) {
+						c = Color.GREEN;
+					}
+				}
+				
+				bricks.add(new Brick((iX + 1) * (BLOCK_WIDTH + 3) + 22, (iY + 2) * (BLOCK_HEIGHT + 3) + 20, c));
+
 			}
 		}
 	}
